@@ -16,6 +16,9 @@ const config: Config = {
       width: {
         '200' : '62.5rem',
         '100' : '30rem'
+      },
+      height: {
+        '100' : '400px'
       }
     },
   },
