@@ -3,9 +3,11 @@ import Header from "./components/Header";
 
 export default async function Home() {
   return (
-    <div>
-    <Header />
-    <Form />
+    <div className="w-full h-full">
+      <Header />
+      <div className="flex justify-center mt-20">
+      <Form />
+      </div>
     </div>
 
   )

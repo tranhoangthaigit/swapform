@@ -2,8 +2,7 @@
 
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
-import { DownOutlined, SmileOutlined } from '@ant-design/icons';
-import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, DashOutlined, DownOutlined, SearchOutlined, SmallDashOutlined, SmileOutlined } from '@ant-design/icons';
 import Image from 'next/image'
 import { Input, Tooltip , Button } from 'antd';
 import logo1INCH from "@/public/icons/1INCH.svg";
@@ -46,26 +45,26 @@ const items: MenuProps['items'] = [
   
 const Header: React.FC = () => {    
     return (
-        <div className="m-4 flex justify-between items-center">
+        <div className="m-4 flex justify-between items-center items-center ">
             <div className="flex">
                 <Image src={logo1INCH} alt="1inch"/>
                 <h4 className="ml-8">Swap</h4>
                 <h4 className="ml-8">Tokens</h4>
                 <h4 className="ml-8">NFTs</h4>
                 <h4 className="ml-8">Pools</h4>
-                <h4 className="ml-8">...</h4>
+                <DashOutlined className="ml-8" />
             </div>
             <Input
-            className="w-96"
+            className="w-200"
             placeholder="Search tokens and NFT collections"
-            prefix={<UserOutlined className="site-form-item-icon" />}
+            prefix={<SearchOutlined className="site-form-item-icon"/>}
             suffix={
                 <Tooltip title="Extra information">
-                <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                <ArrowRightOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                 </Tooltip>
             }
             />
-            <div className="flex justify-between items-center">
+            <div className="flex items-end">
                 <Dropdown menu={{ items }}>
                     <a onClick={(e) => e.preventDefault()}>
                     <Space>
@@ -75,7 +74,7 @@ const Header: React.FC = () => {
                     </a>
                 </Dropdown>
 
-                <Button className="ml-4" type="primary" shape="round" size="large">
+                <Button className="ml-4 bg-fuchsia-100 text-fuchsia-500 font-bold" shape="round" size="large">
                     Connect
                 </Button> 
             </div>

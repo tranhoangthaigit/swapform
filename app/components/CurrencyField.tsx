@@ -1,46 +1,33 @@
-import React, { ChangeEvent } from 'react';
+import { DownOutlined, SmileOutlined } from "@ant-design/icons";
+import { Dropdown, Input, MenuProps, Space } from "antd";
 
-interface CurrencyFieldProps {
-  loading?: boolean;
-  spinner?: React.ComponentType;
-  value?: string;
-  field?: string;
-  getSwapPrice?: (value: string) => void;
-  tokenName?: string;
-  balance?: number;
+interface SwapFieldProps {
+    title : string;
+    iconToken : any;
+    tokenName : string; 
+    handleOpen : () => void;
 }
 
-const CurrencyField: React.FC<CurrencyFieldProps> = (props) => {
-  // const getPrice = (value: string) => {
-  //   props.getSwapPrice(value);
-  // };
-
-  return (
-    <div className="row currencyInput">
-      <div className="col-md-6 numberContainer">
-        {props.loading ? (
-          <div className="spinnerContainer">
-            {/* <props.spinner /> */}
-          </div>
-        ) : (
-          <input
-            className="currencyInputField"
-            placeholder="0.0"
-            value={props.value}
-            // onBlur={(e: ChangeEvent<HTMLInputElement>) =>
-            //   props.field === 'input' ? getPrice(e.target.value) : null
-            // }
-          />
-        )}
-      </div>
-      <div className="col-md-6 tokenContainer">
-        <span className="tokenName">{props.tokenName}</span>
-        <div className="balanceContainer">
-          <span className="balanceAmount">Balance: {props.balance?.toFixed(3)}</span>
+const CurrencyField: React.FC<SwapFieldProps>= ({title,iconToken,tokenName,handleOpen}) => {
+    return (
+        <div className="w-full bg-neutral-100 p-4 rounded-2xl">
+            <div className="flex-col">
+                <h5>{title}</h5>
+                <div className="flex">
+                    <Input placeholder="0" bordered={false} className="text-2xl"/>
+                    <div className="bg-white rounded-2xl">
+                    <a className="flex p-2" onClick={handleOpen}>
+                        <Space>
+                        {iconToken}
+                        {tokenName}
+                        <DownOutlined />
+                        </Space>
+                    </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
-};
+    )
+}
 
 export default CurrencyField;
