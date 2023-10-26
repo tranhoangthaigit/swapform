@@ -5,6 +5,7 @@ import CurrencyField from "./CurrencyField";
 import { Button } from "antd";
 import ModalToken from "./Modal";
 import { useEffect, useState } from "react";
+import { getPrice } from "@/api";
 
 const Form: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -44,8 +45,17 @@ const Form: React.FC = () => {
   }
 
   useEffect(() => {
+    const fetchPrice = async () => {
+      const tokenPrice = await getPrice();
+      const priceTokenReceived = tokenPrice?.find((price) => price.currency === nameTokenReceive)?.price
+      if (priceTokenReceived !== undefined && priceToken !== undefined) {
+        const calculatedPriceToken = priceToken / priceTokenReceived ;
+        const priceReceive = calculatedPriceToken.toString();
+        setAutoValue(priceReceive)
+      }
+    };
     if (logoTokenPay && nameTokenPay && inputValue && nameTokenReceive && logoTokenReceive) {
-      setAutoValue(priceToken)
+      fetchPrice();
     }
   }, [logoTokenPay, nameTokenPay,inputValue,nameTokenReceive,logoTokenReceive]);
 
@@ -88,7 +98,7 @@ const Form: React.FC = () => {
       <div>
         <Button className="w-full mt-4 bg-fuchsia-100 text-fuchsia-500 !h-14 text-base font-bold">Connect Wallet</Button>
       </div>
-      <ModalToken open={modalOpen} handleOK={handleOK} handleCancel={handleCancel} handleClick={handleClick}/>
+      <ModalToken open={modalOpen} handleCancel={handleCancel} handleClick={handleClick}/>
     </div>
   );
 }

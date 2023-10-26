@@ -5,6 +5,7 @@ import { Dropdown, Input, MenuProps, Space } from "antd";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getPrice } from "@/api";
+import { onlyDecimal } from "../helpers/onlyNumber";
 
 interface SwapFieldProps {
   autoInputValue? : string;
@@ -34,8 +35,10 @@ const CurrencyField: React.FC<SwapFieldProps> = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    handleInput(value);
-    setInputValue(value);
+    const decimalValue = onlyDecimal(value); // Lấy giá trị thập phân từ value
+    handleInput(decimalValue);
+    console.log('decimalValue',decimalValue)
+    setInputValue(decimalValue); // Cập nhật inputValue bằng giá trị thập phân
   };
 
   const validateInput = (value: string): boolean => {
@@ -54,7 +57,7 @@ const CurrencyField: React.FC<SwapFieldProps> = ({
       }
     };
     fetchPrice();
-  }, [inputValue]);
+  }, [inputValue,tokenName]);
 
   return (
     <div className="w-full bg-neutral-100 p-4 rounded-2xl">
@@ -84,7 +87,7 @@ const CurrencyField: React.FC<SwapFieldProps> = ({
           Please enter a valid number greater than 0.
         </p>
       ) : (
-        (iconToken !== "" && tokenName !== "") && (priceToken !== undefined && !isNaN(priceToken)) && (
+        (iconToken !== "" && tokenName !== "" && inputValue !== "") && (priceToken !== undefined && !isNaN(priceToken)) && (
           <p>${priceToken}</p>
         )
       )}

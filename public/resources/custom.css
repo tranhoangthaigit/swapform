@@ -5,6 +5,10 @@
 img, video {
   max-width: none!important;
 }
+
+.ant-input {
+  padding: 0px!important;
+}
 /* .ant-space-item {
   width: 50px;
 } */

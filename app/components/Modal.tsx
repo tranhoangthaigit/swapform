@@ -12,12 +12,11 @@ import ModalCard from './ModalCard';
 
 interface ModalProps {
   open: boolean;
-  handleOK: () => void;
   handleCancel: () => void;
   handleClick: (logo: any, name: string) => void;
 }
 
-const ModalToken: React.FC<ModalProps> = ({ open, handleOK, handleCancel, handleClick }) => {
+const ModalToken: React.FC<ModalProps> = ({ open, handleCancel, handleClick }) => {
   const [searchValue, setSearchValue] = useState<string>("");
   // Filtered tokens based on search value
   const filteredTokens = [
@@ -40,8 +39,8 @@ const ModalToken: React.FC<ModalProps> = ({ open, handleOK, handleCancel, handle
       title="Select a token"
       centered
       open={open}
-      onOk={handleOK}
       onCancel={handleCancel}
+      footer={null}
     >
       <Input
         className="w-full"
