@@ -35,14 +35,13 @@ const CurrencyField: React.FC<SwapFieldProps> = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const decimalValue = onlyDecimal(value); // Lấy giá trị thập phân từ value
+    const decimalValue = onlyDecimal(value);
     handleInput(decimalValue);
-    console.log('decimalValue',decimalValue)
-    setInputValue(decimalValue); // Cập nhật inputValue bằng giá trị thập phân
+    setInputValue(decimalValue);
   };
 
   const validateInput = (value: string): boolean => {
-    const parsedValue = parseFloat(value);
+    const parsedValue = parseInt(value);
     return !isNaN(parsedValue) && parsedValue > 0;
   };
 
@@ -51,13 +50,15 @@ const CurrencyField: React.FC<SwapFieldProps> = ({
       const tokenPrice = await getPrice();
       const priceTokenSelected = tokenPrice?.find((price) => price.currency === tokenName)?.price
       if (priceTokenSelected !== undefined) {
-        const calculatedPriceToken = priceTokenSelected * parseFloat(inputValue);
-        handlePrice(calculatedPriceToken);
-        setPriceToken(calculatedPriceToken);
+        const calculatedPriceToken = priceTokenSelected * parseInt(inputValue);
+        if(calculatedPriceToken) {
+          handlePrice(calculatedPriceToken);
+          setPriceToken(calculatedPriceToken);
+        }
       }
     };
     fetchPrice();
-  }, [inputValue,tokenName]);
+  }, [inputValue,tokenName,handlePrice]);
 
   return (
     <div className="w-full bg-neutral-100 p-4 rounded-2xl">
@@ -65,6 +66,7 @@ const CurrencyField: React.FC<SwapFieldProps> = ({
         <h5>{title}</h5>
         <div className="flex">
           <Input
+            disabled={title !== "You pay" ? true : false}
             placeholder="0"
             bordered={false}
             className="text-2xl"

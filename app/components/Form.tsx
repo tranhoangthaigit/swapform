@@ -54,10 +54,8 @@ const Form: React.FC = () => {
         setAutoValue(priceReceive)
       }
     };
-    if (logoTokenPay && nameTokenPay && inputValue && nameTokenReceive && logoTokenReceive) {
-      fetchPrice();
-    }
-  }, [logoTokenPay, nameTokenPay,inputValue,nameTokenReceive,logoTokenReceive]);
+    fetchPrice();
+  }, [logoTokenPay, nameTokenPay,inputValue,nameTokenReceive,logoTokenReceive,priceToken]);
 
   const handleClick = (logo: any, name: string) => {
     if(key === "You pay") {
